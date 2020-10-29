@@ -2,7 +2,7 @@
 \usepackage[margin=25mm]{geometry}
 
 \usepackage{titlesec}
-
+\usepackage[toc,page]{appendix}
 \setcounter{secnumdepth}{4}
 
 \titleformat{\paragraph}
@@ -37,20 +37,211 @@
 
 \section{Introduction}
 
+This application will be designed to interface, capture and analyze EMG signals from a portable EMG device.  
+
 \section{Description}
+
+\subsection{System outline}
+
+The application is composed of a graphical user interface that contains a suite of controls to manage and display the capturing of the data from the EMG device.
+
+\subsection{Users}
+
+The end-users of the application will include:
+
+\begin{itemize}
+	\item Private customer
+	\item Trainer
+	\item Nurse
+\end{itemize}
+
+\subsection{Owners}
+
+The owners and maintainers of the application will include:
+
+\begin{itemize}
+	\item Private customer
+	\item Trainer 
+	\item Nurse
+\end{itemize}
+
+The maintenance including bug fixes will be completed via automatic updates for which the end-user is responsible for.
 
 \section{Constraints}
 
+The application must be available on both Windows and Mac operating systems, and must interface existing EMG devices. 
+
 \section{System features}
+
+\subsection{Data capture}
+
+The application shall be able to capture the EMG signal from the device and save it onto the host of application.
+
+\subsection{Data capture length}
+
+The application shall be able to continuously capture up to 1 hour of data.
+
+\subsubsection{Live data capture}
+
+The application shall capture the live EMG signal form the connected device and display on the graph.
+
+\subsubsection{Noise filtering}
+
+The application shall be able to filter DC to low frequency noise ($<$ 100Hz) and high frequency noise ($>$ 5000Hz). 
+
+\subsubsection{Data filtering}
+
+The following filters shall be made available to be applied on the captured data:
+
+\begin{itemize}
+\item average
+\item peak
+\item RMS
+\item low-pass filter
+\end{itemize}
+
+\subsubsection{Graphing of Data}
+
+The user shall be able to select the following settings of the graph:
+
+\begin{itemize}
+\item Horizontal scale (time measured in seconds)
+\item Vertical scale (amplitude measured in millivolts)
+\item Grid scale 
+\item Adding and removing of x and y markers
+\end{itemize}
+
+\subsubsection{Data navigation}
+
+The user shall be able to navigate the captured data along the time axis from start to finish of the captured session.
+
+\subsubsection{Graph saving}
+
+The user shall be able to save the current graph in view to a (.png) image format on the application host.
+
+\subsubsection{Data saving}
+
+The user shall be able to save the captured data in (.csv) format along with information about the application version and EMG device (hardware/firmware version and serial number).
+
+\subsubsection{Data recall}
+
+The user shall be able to recall up to two saved captured data in (.csv) format simultaneously and display it on the graph.
 
 \section{Interface}
 
+\subsection{Connecting to an EMG device}
+
+The application shall allow the user to connect to an existing single channel EMG device.
+
+\subsubsection{Connection type}
+
+The application shall allow the user to connect to an EMG device via:
+
+\begin{itemize}
+\item Wired connection
+\item Wireless
+\end{itemize}
+
+\subsubsection{Retrieving device information}
+
+The application shall allow the user to retrieve EMG device information such as: 
+
+\begin{itemize}
+\item device local time
+\item battery status
+\item firmware version
+\item hardware version
+\item serial number
+\end{itemize}
+
+\subsubsection{Firmware upgrade}
+
+The application shall be able to perform firmware updates on user discretion if the firmware is out of date.
+
+\subsubsection{Date synchronization}
+
+The application shall automatically synchronize the EMG device local time with the local time of the application.
+
 \section{Quality attributes}
 
-\section{Stakeholder analysis}
+\subsection{User Interface}
 
-\section{Background research}
+The application shall have an intuitive interface with support for a touch screen interface.
+
+\subsubsection{Touch intuitive controls}
+
+The controls of the interface shall be sufficiently large such that an user could access it via a touch screen.
+
+\subsubsection{Device connection}
+
+The user shall be able to connect to the EMG device within 1 minute of opening the application.
+
+\subsubsection{Data Graphing}
+
+The user shall be able to change the colors from a selected list of the following graph elements:
+
+\begin{itemize}
+\item Background color of the graph
+\item Color of the grid
+\item Color of the trace (data)
+\item Color of the markers
+\end{itemize}
+
+\subsubsection{Data display}
+
+The application shall display the captured date from the EMG device with a delay $\leq$ 0.5s
+
+\subsubsection{Data Recall}
+
+The application shall be able to recall saved data (up to 1 hour long) in no less than 1 minute.
+
+\subsubsection{Menu bar}
+
+The application must feature a menu bar from which common menu items will be available such as: help, settings, file open/close etc.
+
+\subsubsection{Status bar}
+
+The application must feature a status bar where information regarding the EMG device such as: connection status and serial number will be displayed.
+
+\subsubsection{Closing the application}
+
+The user shall be alerted if attempting to close the application during a capturing session.
+
+\subsubsection{Out of range data}
+
+The user shall be notified if the captured data falls out of range of the current graph setting.
+
+\subsection{Standards Compliance}
+
+The application must be compliant with IEC 62304:2006 standard.
+
+\newpage
+\begin{flushleft}
+\textbf{{\Large Appendix}}
+\end{flushleft}
+\appendix
+\section{Background Research}
+
+
 
 \section{Scenarios}
+
+\begin{thebibliography}{9}
+
+\bibitem{Biometrics}
+  Biometrics Ltd,
+  \textit{“Biometrics Analysis software.”},
+  Accessed 2020-10-28,
+  www.biometricsltd.com/emg-software
+  
+\bibitem{Laborie}
+  Laborie Medical Technologies,
+  \textit{“NXT is modern urodynamics”},
+  Accessed 2020-10-28,
+  www.laborie.com/experiencenxtpro/
+
+\end{thebibliography}
+
+
 
 \end{document}
