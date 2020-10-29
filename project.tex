@@ -4,6 +4,7 @@
 \usepackage{titlesec}
 \usepackage[toc,page]{appendix}
 \setcounter{secnumdepth}{4}
+%\usepackage{indentfirst}
 
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
@@ -37,13 +38,16 @@
 
 \section{Introduction}
 
-This application will be designed to interface, capture and analyze EMG signals from a portable EMG device.  
+\indent This application will be designed to interface, capture and analyze EMG signals from a portable EMG device. 
+EMG signals are biomedical signals that measure the muscle fiber potential (muscle action). 
+These signals can be used for diagnosing muscle response for both medical and fitness purposes.
 
 \section{Description}
 
 \subsection{System outline}
 
-The application is composed of a graphical user interface that contains a suite of controls to manage and display the capturing of the data from the EMG device.
+The application will be composed of a graphical user interface that contains a suite of controls to manage and 
+display the capturing of the data from the EMG device. The application will display data as it's being captured as well as provide the user with the option to save and recall the data for offline analysis.
 
 \subsection{Users}
 
@@ -65,11 +69,12 @@ The owners and maintainers of the application will include:
 	\item Nurse
 \end{itemize}
 
-The maintenance including bug fixes will be completed via automatic updates for which the end-user is responsible for.
+The maintenance including bug fixes will be completed via software updates. The end-user will be responsible
+for downloading updated application installation from the web.
 
 \section{Constraints}
 
-The application must be available on both Windows and Mac operating systems, and must interface existing EMG devices. 
+The application must be available on both Windows and Mac operating systems, and must interface existing EMG devices. Updates for the application must be made freely available online.  
 
 \section{System features}
 
@@ -100,7 +105,7 @@ The following filters shall be made available to be applied on the captured data
 \item low-pass filter
 \end{itemize}
 
-\subsubsection{Graphing of Data}
+\subsubsection{Graphing of data}
 
 The user shall be able to select the following settings of the graph:
 
@@ -121,7 +126,7 @@ The user shall be able to save the current graph in view to a (.png) image forma
 
 \subsubsection{Data saving}
 
-The user shall be able to save the captured data in (.csv) format along with information about the application version and EMG device (hardware/firmware version and serial number).
+The user shall be able to save the raw captured data in (.csv) format along with information about the application version and EMG device (hardware/firmware version and serial number).
 
 \subsubsection{Data recall}
 
@@ -222,9 +227,68 @@ The application must be compliant with IEC 62304:2006 standard.
 \appendix
 \section{Background Research}
 
-
+My background research is mostly due to my industry experience in the field. However, I heavily referenced \cite{Biometrics} and \cite{Laborie}
+to draw some ideas for the most critical features that an EMG capturing application would have. Obviously, graphing is the most important feature
+which both of the applications provided by Biometrics and Laborie do. Along with that they offer the ability to custumize the graph in terms scale,
+colors and ability to add markers for measurements. Additionally, both offered the ability to save the capture data and recall for later analysis 
+with optional features of saving a quick image capture of the graph. Another optional feature that each offer is the ability to filter the data using
+standard array of filters. I decided to include the basic array of filtering for now, but other types can always be added in later revisions of the application. 
 
 \section{Scenarios}
+
+\subsection{Adding a new EMG device}
+
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item User connects to a new EMG device
+	\item Application retrieves EMG device information
+	\item EMG device confirmed acceptable
+	\item Date is synchronized with the device
+	\item Device is ready to be used to capture data
+\end{enumerate}
+
+\subsubsection{Postive Abnormal}
+
+\begin{enumerate}
+	\item User connects to a new EMG device
+	\item Application retrieves EMG device information
+	\item EMG device confirmed unacceptable
+	\item Error message is displayed that the device is not compatible 
+\end{enumerate}
+
+\subsection{Graphing data}
+
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item User starts capturing data from EMG device
+	\item Application starts displaying data on the graph
+	\item User adjusts the graph vertical and horizontal scales
+	\item User adds markers to the graph
+	\item Data is captured up to 1 hour in length
+\end{enumerate}
+
+\subsubsection{Negative}
+
+\begin{enumerate}
+	\item User tries to change the graph colors while capturing
+\end{enumerate}
+
+\subsection{Saving and recalling data}
+
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item After a capture user saves data onto local disk
+	\item Application saves data in (.csv) format onto disk
+\end{enumerate}
+
+\subsubsection{Negative}
+
+\begin{enumerate}
+	\item User tries to open a corrupted data file  
+\end{enumerate}
 
 \begin{thebibliography}{9}
 
@@ -241,7 +305,5 @@ The application must be compliant with IEC 62304:2006 standard.
   www.laborie.com/experiencenxtpro/
 
 \end{thebibliography}
-
-
 
 \end{document}
