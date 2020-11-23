@@ -3,6 +3,15 @@
 
 \usepackage{titlesec}
 \usepackage[toc,page]{appendix}
+
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+}
 \setcounter{secnumdepth}{4}
 %\usepackage{indentfirst}
 
@@ -10,13 +19,21 @@
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
+
+% TODO:
+% add use case diagrams in Description section
+% add class diagrams in Data Requirements section
+% add overview for class diagrams
+% refactor requirements for new unidentified requirements -- done
+
+
 \begin{document}
 
 \begin{titlepage}
 	\centering
 	{\scshape\LARGE McMaster University \par}
 	\vspace{2cm}
-	{\scshape\Large Project Deliverable \#2 \par}
+	{\scshape\Large Project Deliverable \#3 \par}
 	\vspace{4cm}
 	{\huge\bfseries EMG Capturing Software\par}
 	\vspace{2cm}
@@ -24,7 +41,7 @@
 	
 	\vfill
 	Course: 3RQ3 – Software Requirements and Specifications\par
-    Instructor: Seat Watson
+    Instructor: Sean Watson
 
 	\vfill
 
@@ -38,11 +55,29 @@
 
 \section{Introduction}
 
-\indent This application will be designed to interface, capture and analyze EMG signals from a portable EMG device. 
+\indent This application will be designed to interface, capture and analyze electromyography (EMG) signals from a portable EMG device. 
 EMG signals are biomedical signals that measure the muscle fiber potential (muscle action). 
 These signals can be used for diagnosing muscle response for both medical and fitness purposes.
 
 \section{Description}
+
+\subsection{Definitions}
+
+\begin{table}[htbp]
+	\centering
+	
+	\begin{tabular}{p{0.35\linewidth}p{0.6\linewidth}}
+		\textbf{Noun}  & \textbf{Definition} \\
+		
+		Electromyography (EMG) & diagnostic procedure to assess the health of muscles and the nerve cells that control them (motor neurons) \\
+		EMG signal             & biomedical signal that measures electrical currents generated in muscles during its contraction representing neuromuscular activities \\
+		USB (Universal Serial Bus) & industry protocol for communication and power transfer from device to device  \\
+		BT (Bluetooth) & industry wireless protocol for communication between devices \\
+		Filter (signal processing)     & method for removing unwanted components of a signal and highlighting wanted components     \\
+
+	\end{tabular}
+	\textbf{\caption { Definitions }}
+\end{table}
 
 \subsection{System outline}
 
@@ -57,6 +92,7 @@ The end-users of the application will include:
 	\item Private customer
 	\item Trainer
 	\item Nurse
+	\item Doctor
 \end{itemize}
 
 \subsection{Owners}
@@ -64,23 +100,78 @@ The end-users of the application will include:
 The owners and maintainers of the application will include:
 
 \begin{itemize}
-	\item Private customer
-	\item Trainer 
-	\item Nurse
+	\item Private customer (ex. a fitness practitioner or private clinic)
+	\item Hospital
+	\item Software company
 \end{itemize}
 
-The maintenance including bug fixes will be completed via software updates. The end-user will be responsible
-for downloading updated application installation from the web.
+The maintenance including bug fixes will be completed via automatic software updates. 
 
 \section{Constraints}
 
-The application must be available on both Windows and Mac operating systems, and must interface existing EMG devices. Updates for the application must be made freely available online.  
+\begin{itemize}
+	\item The application must be available on both Windows and Mac operating systems
+	\item The application must interface existing EMG devices on the market, few devices include:
+	
+		\begin{itemize}
+			\item Roam NXT by Laborie company
+			\item Goby IV by Laborie company
+			\item Solar Blue by MMS company
+		\end{itemize}
+
+	\item Application host device must be connected to the internet for software updates
+\end{itemize}
+
+\newpage
 
 \section{System features}
+
+\subsection{Menu bar}
+
+The application must feature a menu bar from which common menu items will be available such as: help, settings, file open/close etc.
+
+\subsubsection{Status bar}
+
+The application must feature a status bar where information regarding the EMG device such as: connection type, connection status and device serial number.
+
+\subsubsection{Closing the application}
+
+The user shall be alerted if attempting to close the application during a capturing session.
+
+\subsubsection{Out of range data}
+
+The user shall be notified if the captured data falls out of range of the current graph setting.
 
 \subsection{Data capture}
 
 The application shall be able to capture the EMG signal from the device and save it onto the host of application.
+
+\subsubsection{Device connection methods}
+
+The device capture should be made via the following two means of device connection:
+
+\begin{itemize}
+	\item Wired - via USB connection
+	\item Wireless - via Bluetooth connection
+\end{itemize}
+
+\subsubsection{Data capture properties}
+
+\begin{table}[htbp]
+	\centering
+	
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Property}  & \textbf{Limits} \\
+		\hline
+		Number of channels & up to 2 channels of EMG data\\
+		\hline
+		Signal amplitude & +/- 10mV \\
+		\hline
+		Signal bandwidth & 1Hz to 5000Hz \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{Data capture length}
 
@@ -90,22 +181,43 @@ The application shall be able to continuously capture up to 1 hour of data.
 
 The application shall capture the live EMG signal form the connected device and display on the graph.
 
+\subsubsection{Filter library}
+
+The application shall feature filters implemented using an internal libraryf for noise and data filtering.
+
+\subsubsection{Filtering method}
+
+The filters shall be able to run in real-time as the data is being captured by the application.
+
 \subsubsection{Noise filtering}
 
-The application shall be able to filter DC to low frequency noise ($<$ 100Hz) and high frequency noise ($>$ 5000Hz). 
+The application shall be able to filter DC to low frequency noise ($<$ 100Hz) and high frequency noise ($>$ 5000Hz). \\
+
+The following are some critical unwanted signals to filter: 
+
+\begin{itemize}
+	\item Signals ($<$ 100Hz): 50/60Hz electrical utility frequency signals
+	\item Signals ($>$ 5000Hz): AM/FM radio signals
+\end{itemize}
+
+Refer to following link for more signal types: \href{https://www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf10759.html#t2}{Canadian Table of Frequency Allocations}
 
 \subsubsection{Data filtering}
 
 The following filters shall be made available to be applied on the captured data:
 
 \begin{itemize}
-\item average
-\item peak
-\item RMS
-\item low-pass filter
+\item moving average - running average filter to smoothen the data 
+\item peak - filter to highlight the peaks of a signal
+\item low-pass filter - filter to remove signal components beyond a certain cut-off frequency
+\item high-pass filter - filter to remove signal components below a certain cut-off frequency
 \end{itemize}
 
-\subsubsection{Graphing of data}
+\subsubsection{Application graph}
+
+The application shall feature a graph that takes up majority of the screen on the main page.
+
+\subsubsection{Graph settings}
 
 The user shall be able to select the following settings of the graph:
 
@@ -114,15 +226,34 @@ The user shall be able to select the following settings of the graph:
 \item Vertical scale (amplitude measured in millivolts)
 \item Grid scale 
 \item Adding and removing of x and y markers
+\item Background color of the graph
+\item Color of the grid
+\item Color of the trace (data)
+\item Color of the markers
 \end{itemize}
+
 
 \subsubsection{Data navigation}
 
-The user shall be able to navigate the captured data along the time axis from start to finish of the captured session.
+The user shall be able to navigate the data along the time axis from start to finish.
 
-\subsubsection{Graph saving}
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|l|l|}
+		\hline
+		\textbf{Capture Complete} & \textbf{Graph mode}  & \textbf{Navigation type} \\
+		\hline
+		Yes & User view mode & Able to use navigation bar\\
+		\hline
+		No & Real time capture & Navigation bar disabled \\
+		\hline
+	\end{tabular}
+\end{table}
 
-The user shall be able to save the current graph in view to a (.png) image format on the application host.
+
+\subsubsection{Graph screenshot}
+
+The user shall be able to save the current screenshot of graph to a (.png) image format on the application host via a button.
 
 \subsubsection{Data saving}
 
@@ -130,7 +261,9 @@ The user shall be able to save the raw captured data in (.csv) format along with
 
 \subsubsection{Data recall}
 
-The user shall be able to recall up to two saved captured data in (.csv) format simultaneously and display it on the graph.
+The user shall be able to recall up to two saved captured data in (.csv) format simultaneously and display it on a single graph.
+
+\newpage
 
 \section{Interface}
 
@@ -161,11 +294,13 @@ The application shall allow the user to retrieve EMG device information such as:
 
 \subsubsection{Firmware upgrade}
 
-The application shall be able to perform firmware updates on user discretion if the firmware is out of date.
+The application shall be able to complete firmware updates automatically if available.
 
 \subsubsection{Date synchronization}
 
 The application shall automatically synchronize the EMG device local time with the local time of the application.
+
+\newpage
 
 \section{Quality attributes}
 
@@ -173,24 +308,13 @@ The application shall automatically synchronize the EMG device local time with t
 
 The application shall have an intuitive interface with support for a touch screen interface.
 
+\subsubsection{Application instances}
+
+The user shall be limited to opening only once instance of the application.
+
 \subsubsection{Touch intuitive controls}
 
 The controls of the interface shall be sufficiently large such that an user could access it via a touch screen.
-
-\subsubsection{Device connection}
-
-The user shall be able to connect to the EMG device within 1 minute of opening the application.
-
-\subsubsection{Data Graphing}
-
-The user shall be able to change the colors from a selected list of the following graph elements:
-
-\begin{itemize}
-\item Background color of the graph
-\item Color of the grid
-\item Color of the trace (data)
-\item Color of the markers
-\end{itemize}
 
 \subsubsection{Data display}
 
@@ -200,25 +324,27 @@ The application shall display the captured date from the EMG device with a delay
 
 The application shall be able to recall saved data (up to 1 hour long) in no less than 1 minute.
 
-\subsubsection{Menu bar}
+\subsection{Device connection}
 
-The application must feature a menu bar from which common menu items will be available such as: help, settings, file open/close etc.
+\subsubsection{Device connection}
 
-\subsubsection{Status bar}
+The user shall be able to connect to the EMG device within 1 minute of opening the application.
 
-The application must feature a status bar where information regarding the EMG device such as: connection status and serial number will be displayed.
+\subsubsection{Device wireless disconnection}
 
-\subsubsection{Closing the application}
+In case of EMG device wireless disconnection the application shall be able to re-connect and continue capturing within 15 seconds.
 
-The user shall be alerted if attempting to close the application during a capturing session.
+\subsubsection{Device unresponsiveness}
 
-\subsubsection{Out of range data}
+In case of EMG device becoming unresponsive the application shall make the user aware within 30 seconds.
 
-The user shall be notified if the captured data falls out of range of the current graph setting.
-
-\subsection{Standards Compliance}
+\subsection{Standards compliance}
 
 The application must be compliant with IEC 62304:2006 standard.
+
+\subsubsection{User identity storage}
+
+The application shall securely store user specific information such as given name, last name, age and address.
 
 \newpage
 \begin{flushleft}
@@ -229,10 +355,12 @@ The application must be compliant with IEC 62304:2006 standard.
 
 My background research is mostly due to my industry experience in the field. However, I heavily referenced \cite{Biometrics} and \cite{Laborie}
 to draw some ideas for the most critical features that an EMG capturing application would have. Obviously, graphing is the most important feature
-which both of the applications provided by Biometrics and Laborie do. Along with that they offer the ability to custumize the graph in terms scale,
+which both of the applications provided by Biometrics and Laborie do. Along with that they offer the ability to customize the graph in terms scale,
 colors and ability to add markers for measurements. Additionally, both offered the ability to save the capture data and recall for later analysis 
 with optional features of saving a quick image capture of the graph. Another optional feature that each offer is the ability to filter the data using
 standard array of filters. I decided to include the basic array of filtering for now, but other types can always be added in later revisions of the application. 
+
+\newpage
 
 \section{Scenarios}
 
@@ -287,7 +415,7 @@ standard array of filters. I decided to include the basic array of filtering for
 \subsubsection{Negative}
 
 \begin{enumerate}
-	\item User tries to open a corrupted data file  
+	\item User tries to open a file format different than (.csv)  
 \end{enumerate}
 
 \newpage
@@ -305,6 +433,18 @@ standard array of filters. I decided to include the basic array of filtering for
   Accessed 2020-10-28,
   www.laborie.com/experiencenxtpro/
 
+\bibitem{Mayo Clinic}
+  Mayo Clinic,
+  \textit{“Electromyography (EMG) Test procedure”},
+  Accessed 2020-11-18,
+  www.mayoclinic.org/tests-procedures/emg/about/pac-20393913
+
+\bibitem{ICGC}
+  Laborie Medical Technologies,
+  \textit{“Canadian Table of Frequency Allocations”},
+  Accessed 2020-11-18,
+  www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf10759.html#t2
+ 
 \end{thebibliography}
 
 \end{document}

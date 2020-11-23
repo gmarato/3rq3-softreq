@@ -1,0 +1,8 @@
+# LaTeX files from VScode and TeXstudio
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.synctex.gz
