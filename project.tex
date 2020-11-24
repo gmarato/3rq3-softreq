@@ -3,8 +3,10 @@
 
 \usepackage{titlesec}
 \usepackage[toc,page]{appendix}
-
+\usepackage{graphicx}
 \usepackage{hyperref}
+
+\graphicspath{ {./images/} }
 
 \hypersetup{
     colorlinks=true,
@@ -37,7 +39,7 @@
 	\vspace{4cm}
 	{\huge\bfseries EMG Capturing Software\par}
 	\vspace{2cm}
-	{\Large\itshape Marato Gebremichael\par}
+	{\Large\itshape by Marato Gebremichael\par}
 	
 	\vfill
 	Course: 3RQ3 – Software Requirements and Specifications\par
@@ -53,11 +55,17 @@
 
 \newpage
 
+\listoftables
+
+\listoffigures
+
+\newpage
+
 \section{Introduction}
 
 \indent This application will be designed to interface, capture and analyze electromyography (EMG) signals from a portable EMG device. 
 EMG signals are biomedical signals that measure the muscle fiber potential (muscle action). 
-These signals can be used for diagnosing muscle response for both medical and fitness purposes.
+These signals can be used for diagnosing muscle response for both medical and fitness purposes \cite{Mayo Clinic}.
 
 \section{Description}
 
@@ -106,6 +114,17 @@ The owners and maintainers of the application will include:
 \end{itemize}
 
 The maintenance including bug fixes will be completed via automatic software updates. 
+
+\subsection{Use Case Diagrams}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.40]{Project Use Case Diagram.png}
+	\caption{Use Case Diagram}
+	\label{Data Classes}
+\end{figure}
+
+\newpage
 
 \section{Constraints}
 
@@ -187,7 +206,8 @@ The application shall feature filters implemented using an internal libraryf for
 
 \subsubsection{Filtering method}
 
-The filters shall be able to run in real-time as the data is being captured by the application.
+The filters shall be able to run in real-time as the data is being captured by the application. 
+The filters shall also be able to be applied during on data that was recalled.
 
 \subsubsection{Noise filtering}
 
@@ -200,7 +220,7 @@ The following are some critical unwanted signals to filter:
 	\item Signals ($>$ 5000Hz): AM/FM radio signals
 \end{itemize}
 
-Refer to following link for more signal types: \href{https://www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf10759.html#t2}{Canadian Table of Frequency Allocations}
+Refer to following link for more signal types: \cite{ICGC} \href{https://www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf10759}{Canadian Table of Frequency Allocations}
 
 \subsubsection{Data filtering}
 
@@ -269,7 +289,7 @@ The user shall be able to recall up to two saved captured data in (.csv) format 
 
 \subsection{Connecting to an EMG device}
 
-The application shall allow the user to connect to an existing single channel EMG device.
+The application shall allow the user to connect to an existing two channels EMG device.
 
 \subsubsection{Connection type}
 
@@ -342,11 +362,39 @@ In case of EMG device becoming unresponsive the application shall make the user 
 
 The application must be compliant with IEC 62304:2006 standard.
 
-\subsubsection{User identity storage}
+\newpage
 
-The application shall securely store user specific information such as given name, last name, age and address.
+\section{Data Requirements}
+
+\subsection{Overview}
+
+\begin{itemize}
+	\item EMG device - will track the EMG devices that are connected to the application. User can potentially connect many devices to host however, only one device can be connect to application and capturing.
+						This class will only be useful for firmware updates. 
+	\item Data capture - will contain and track the EMG data that is being captured by the application
+	\item Data recall - is a relationship with the data capture inheriting all of its methods and attributes. 
+						Additional attributes such as date of capture and total length of data captured are added as useful information
+	\item Graph - will track the main graph along with its possible two channels and different settings of each individual channels. 
+						Since there is only one graph, some settings of individual channel like scales and colors are common, however each channel could have individual markers and marker colors as well as trace color
+	\item Channel - since we have two channels we need to track the settings to each individual channel
+	\item Settings - contains the many settings that can be applied to a channel within the single graph
+	\item Filter - contains information about the filter types and orders (how intense the filter is). Multiple filter types can be applied to the data capture (high, low-pass etc.)
+	\item Filter types (low, high, average, peak) - is a relationship with the filter class. Each filter type in itself can branch to many subtypes and have different properties such as cut-off frequencies, amplitude, weight
+\end{itemize}
 
 \newpage
+
+\subsection{Class Diagrams}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.50]{Project Data Classes.png}
+	\caption{Data Classes}
+	\label{Data Classes}
+\end{figure}
+
+\newpage
+
 \begin{flushleft}
 \textbf{{\Large Appendix}}
 \end{flushleft}
@@ -376,6 +424,24 @@ standard array of filters. I decided to include the basic array of filtering for
 	\item Device is ready to be used to capture data
 \end{enumerate}
 
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item User plugs in device into host computer via USB cable
+	\item Application automatically connects to device
+	\item Date is synchronized with the device
+	\item Device is ready to be used to capture data
+\end{enumerate}
+
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item User pairs EMG device with host computer via Bluetooth
+	\item Application automatically connects to device
+	\item Date is synchronized with the device
+	\item Device is ready to be used to capture data
+\end{enumerate}
+
 \subsubsection{Postive Abnormal}
 
 \begin{enumerate}
@@ -383,6 +449,49 @@ standard array of filters. I decided to include the basic array of filtering for
 	\item Application retrieves EMG device information
 	\item EMG device confirmed unacceptable
 	\item Error message is displayed that the device is not compatible 
+\end{enumerate}
+
+\subsubsection{Postive Abnormal}
+
+\begin{enumerate}
+	\item User does not pair EMG device via BT or connect via USB connection
+	\item User tries to connect EMG device
+	\item After 1 minute of waiting time, the connection times out
+	\item Warning message displayed that the device could not be found
+\end{enumerate}
+
+\subsubsection{Negative}
+
+\begin{enumerate}
+	\item User connects an unsupported EMG device
+	\item Application does not recognize EMG device information
+	\item Error message is issued to user that device might not be supported
+\end{enumerate}
+
+\subsection{Capturing data}
+
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item User clicks on "Start Capture" button
+	\item Application triggers the EMG device to start capturing
+	\item Application graph is updated with incoming data from EMG device
+\end{enumerate}
+
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item User selects filter type from a list
+	\item Application applies filter onto the captured data
+\end{enumerate}
+
+\subsubsection{Positive Abnormal}
+
+\begin{enumerate}
+	\item Application is capturing from EMG device via Bluetooth
+	\item A Bluetooth disconnection occurs
+	\item Application recovers and reconnects to EMG device
+	\item Application continues capturing EMG data
 \end{enumerate}
 
 \subsection{Graphing data}
@@ -397,12 +506,6 @@ standard array of filters. I decided to include the basic array of filtering for
 	\item Data is captured up to 1 hour in length
 \end{enumerate}
 
-\subsubsection{Negative}
-
-\begin{enumerate}
-	\item User tries to change the graph colors while capturing
-\end{enumerate}
-
 \subsection{Saving and recalling data}
 
 \subsubsection{Positive Normal}
@@ -410,6 +513,15 @@ standard array of filters. I decided to include the basic array of filtering for
 \begin{enumerate}
 	\item After a capture user saves data onto local disk
 	\item Application saves data in (.csv) format onto disk
+\end{enumerate}
+
+\subsubsection{Positive Normal}
+
+\begin{enumerate}
+	\item User recalls saved data set from local disk
+	\item Graph is populated with data in channel 1
+	\item User recalls another saved data set from local disk
+	\item Graph is populated with data in channel 2
 \end{enumerate}
 
 \subsubsection{Negative}
@@ -443,7 +555,7 @@ standard array of filters. I decided to include the basic array of filtering for
   Laborie Medical Technologies,
   \textit{“Canadian Table of Frequency Allocations”},
   Accessed 2020-11-18,
-  www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf10759.html#t2
+  www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf10759
  
 \end{thebibliography}
 
