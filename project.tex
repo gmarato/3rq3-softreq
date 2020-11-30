@@ -22,20 +22,13 @@
 \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 
-% TODO:
-% add use case diagrams in Description section
-% add class diagrams in Data Requirements section
-% add overview for class diagrams
-% refactor requirements for new unidentified requirements -- done
-
-
 \begin{document}
 
 \begin{titlepage}
 	\centering
 	{\scshape\LARGE McMaster University \par}
 	\vspace{2cm}
-	{\scshape\Large Project Deliverable \#3 \par}
+	{\scshape\Large Project Deliverable \#4 \par}
 	\vspace{4cm}
 	{\huge\bfseries EMG Capturing Software\par}
 	\vspace{2cm}
@@ -192,7 +185,7 @@ The device capture should be made via the following two means of device connecti
 	\end{tabular}
 \end{table}
 
-\subsection{Data capture length}
+\subsubsection{Data capture length}
 
 The application shall be able to continuously capture up to 1 hour of data.
 
@@ -200,7 +193,7 @@ The application shall be able to continuously capture up to 1 hour of data.
 
 The application shall capture the live EMG signal form the connected device and display on the graph.
 
-\subsubsection{Filter library}
+\subsection{Filter library}
 
 The application shall feature filters implemented using an internal libraryf for noise and data filtering.
 
@@ -233,11 +226,7 @@ The following filters shall be made available to be applied on the captured data
 \item high-pass filter - filter to remove signal components below a certain cut-off frequency
 \end{itemize}
 
-\subsubsection{Application graph}
-
-The application shall feature a graph that takes up majority of the screen on the main page.
-
-\subsubsection{Graph settings}
+\subsection{Graph settings}
 
 The user shall be able to select the following settings of the graph:
 
@@ -328,9 +317,9 @@ The application shall automatically synchronize the EMG device local time with t
 
 The application shall have an intuitive interface with support for a touch screen interface.
 
-\subsubsection{Application instances}
+\subsubsection{Application graph}
 
-The user shall be limited to opening only once instance of the application.
+The application shall feature a graph that takes up majority of the screen on the main page.
 
 \subsubsection{Touch intuitive controls}
 
@@ -374,9 +363,7 @@ The application must be compliant with IEC 62304:2006 standard.
 	\item Data capture - will contain and track the EMG data that is being captured by the application
 	\item Data recall - is a relationship with the data capture inheriting all of its methods and attributes. 
 						Additional attributes such as date of capture and total length of data captured are added as useful information
-	\item Graph - will track the main graph along with its possible two channels and different settings of each individual channels. 
-						Since there is only one graph, some settings of individual channel like scales and colors are common, however each channel could have individual markers and marker colors as well as trace color
-	\item Channel - since we have two channels we need to track the settings to each individual channel
+	\item Graph - will track two possible graph with two different applicable settings. Some settings like the graph scale will be common for both graphs
 	\item Settings - contains the many settings that can be applied to a channel within the single graph
 	\item Filter - contains information about the filter types and orders (how intense the filter is). Multiple filter types can be applied to the data capture (high, low-pass etc.)
 	\item Filter types (low, high, average, peak) - is a relationship with the filter class. Each filter type in itself can branch to many subtypes and have different properties such as cut-off frequencies, amplitude, weight
@@ -392,6 +379,17 @@ The application must be compliant with IEC 62304:2006 standard.
 	\caption{Data Classes}
 	\label{Data Classes}
 \end{figure}
+
+
+\section{Testing}
+
+\subsection{Automated Tests}
+
+The generated automated tests can be found with the following link: \href{https://github.com/gmarato/3rq3-softreq}{3rq3-softreq Project Folder}
+
+\subsection{Manual Tests}
+
+The following requirements will be tested manually:
 
 \newpage
 
@@ -529,6 +527,11 @@ standard array of filters. I decided to include the basic array of filtering for
 \begin{enumerate}
 	\item User tries to open a file format different than (.csv)  
 \end{enumerate}
+
+
+\section{Requirements Test Justification}
+
+The following requirements can not be tested either via automated means or manual:
 
 \newpage
 \begin{thebibliography}{9}
