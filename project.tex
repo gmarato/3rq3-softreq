@@ -191,6 +191,14 @@ The application shall be able to continuously capture up to 1 hour of data.
 
 \subsubsection{Live data capture}
 
+\subsubsection{Data saving}
+
+The user shall be able to save the raw captured data in (.csv) format along with information about the application version and EMG device (hardware/firmware version and serial number).
+
+\subsubsection{Data recall}
+
+The user shall be able to recall up to two saved captured data in (.csv) format simultaneously and display it on a single graph.
+
 The application shall capture the live EMG signal form the connected device and display on the graph.
 
 \subsection{Filter library}
@@ -263,14 +271,6 @@ The user shall be able to navigate the data along the time axis from start to fi
 \subsubsection{Graph screenshot}
 
 The user shall be able to save the current screenshot of graph to a (.png) image format on the application host via a button.
-
-\subsubsection{Data saving}
-
-The user shall be able to save the raw captured data in (.csv) format along with information about the application version and EMG device (hardware/firmware version and serial number).
-
-\subsubsection{Data recall}
-
-The user shall be able to recall up to two saved captured data in (.csv) format simultaneously and display it on a single graph.
 
 \newpage
 
@@ -380,12 +380,27 @@ The application must be compliant with IEC 62304:2006 standard.
 	\label{Data Classes}
 \end{figure}
 
+\newpage
 
 \section{Testing}
 
+\subsection{Coverage Table}
+
+\begin{table}[htbp]
+	\centering
+	
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Requirement \#} & \textbf{Description} & \textbf{Coverage} & \textbf{Test}\\
+		\hline
+		5.2 & Testd & Yes & Automated\\
+		\hline
+	\end{tabular}
+\end{table}
+
 \subsection{Automated Tests}
 
-The generated automated tests can be found with the following link: \href{https://github.com/gmarato/3rq3-softreq}{3rq3-softreq Project Folder}
+The generated automated tests can be found with the following link: \href{https://github.com/gmarato/3rq3-softreq}{gmarato/3rq3-softreq}
 
 \subsection{Manual Tests}
 
@@ -528,6 +543,7 @@ standard array of filters. I decided to include the basic array of filtering for
 	\item User tries to open a file format different than (.csv)  
 \end{enumerate}
 
+\newpage
 
 \section{Requirements Test Justification}
 

@@ -16,10 +16,16 @@ class DataCapture():
         """
         return None
 
+    def dataSave(self):
+        return None
+
 class DataRecall(DataCapture):
     def __init__(self):
         self.dataLength = 60
         self.dataDate = 372178361
 
     def getLength(self):
+        return None
+
+    def openData(self):
         return None

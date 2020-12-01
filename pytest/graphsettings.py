@@ -2,6 +2,9 @@ class Graph():
     def __init__(self, graphChannel):
         self.graphId = 3213122
         self.graphChannel = graphChannel
+    
+    def takeScreenshot(self):
+        return None
 
 class Settings(Graph):
     def __init__(self):
@@ -15,4 +18,27 @@ class Settings(Graph):
         self.xMarkerColor = "Red"
         self.yMarkerColor = "Green"
         self.traceColor = "Black"
+    
+    def setHorScale(self, scale):
+        return None
+    
+    def setVerScale(self, scale):
+        return None
 
+    def setGridScale(self, scale):
+        return None
+
+    def addXMarker(self):
+        return None
+
+    def addYMarker(self):
+        return None
+
+    def setBackColor(self, color):
+        return None
+
+    def setGridColor(self, color):
+        return None
+
+    def setTraceColor(self, color):
+        return None

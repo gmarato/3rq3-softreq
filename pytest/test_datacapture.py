@@ -8,7 +8,7 @@ def test_data_capture_length_60():
 
     test_length = 60
     
-    assert test_length <= data.getLength(), "Capture length is beyond the requirement"
+    assert test_length == data.getLength(), "Capture length is beyond the requirement"
     
 def test_data_capture_length_40():
     """Tests 4.2.3 Data capture length
@@ -17,7 +17,7 @@ def test_data_capture_length_40():
 
     test_length = 40
     
-    assert test_length <= data.getLength(), "Capture length is beyond the requirement"
+    assert test_length == data.getLength(), "Capture length is beyond the requirement"
 
 def test_data_capture_length_65():
     """Tests 4.2.3 Data capture length
@@ -26,7 +26,7 @@ def test_data_capture_length_65():
 
     test_length = 65
     
-    assert test_length <= data.getLength(), "Capture length is beyond the requirement"
+    assert test_length == data.getLength(), "Capture length is beyond the requirement"
 
 def test_data_live_capture():
     """Tests 4.2.4 Live data capture
@@ -42,7 +42,42 @@ def test_data_live_capture():
     if data.dataGraph == []:
         errors.append("Graph variable empty")
 
-    assert not errors, "Errors occured:\n{}".format("\n".join(errors))
+    assert not errors, "Assert errors occured:\n{}".format("\n".join(errors))
+
+def test_save_data_capture():
+    """Tests 4.2.5 Data saving
+    """
+    data = DataCapture()
+    
+    # capture up to 1hr long of data
+    data.dataCapture()
+
+    data1 = data.dataSave()
+    data2 = data.dataSave()
+
+    #TODO
+    # save data1 onto local drive, recall it and compare to data2 from memory
+    
+    # NOTE: currently returns PASSED as the two data types are both "NONE" and python considers them equal
+    assert data1 == data2, "Was not able to save data capture"
+
+def test_recall_data_capture():
+    """Tests 4.2.6 Data recall
+    """
+    data = DataRecall()
+    
+    # open dummy .CSV data files
+    data1 = data.openData()
+    data2 = data.openData()
+
+    errors = []
+    
+    if not data1:
+        errors.append("Was not able to recall data capture 1")
+    if not data2:
+        errors.append("Was not able to recall data capture 2")
+
+    assert not errors, "Assert errors occured:\n{}".format("\n".join(errors))
 
 def test_apply_filter():
     """Tests 4.3.1 Filtering method
@@ -74,16 +109,18 @@ def test_apply_noise_filter():
     high_filtered_data = data.applyFilter(high_noise_filter, 2)
 
     errors = []
-
-    # replace == with a check if noise data is contained in filtered data
+    
+    #TODO
+    # replace == with a in comparison to check if the noise is in the data
     if low_noise == low_filtered_data:
         errors.append("Low noise detected in filtered data")
     if high_noise == high_filtered_data:
         errors.append("High noise detected in filtered data")
 
-    assert not errors, "Errors occured:\n{}".format("\n".join(errors))
+     # NOTE: currently returns PASSED as the two data types are both "NONE" and python considers them equal
+    assert not errors, "Assert errors occured:\n{}".format("\n".join(errors))
 
-def test_apply_noise_filter():
+def test_check_avail_filters():
     """Tests 4.3.3 Data filtering
     """
     data = DataCapture()
@@ -105,4 +142,4 @@ def test_apply_noise_filter():
     if not pkf.getFilterInfo():
         errors.append("Peak filter does not exist")
 
-    assert not errors, "Errors occured:\n{}".format("\n".join(errors))
+    assert not errors, "Assert errors occured:\n{}".format("\n".join(errors))
