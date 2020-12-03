@@ -6,7 +6,7 @@ class Graph():
     def takeScreenshot(self):
         return None
 
-class Settings(Graph):
+class Channel(Graph):
     def __init__(self):
         self.horScale = 21
         self.verScale = 32

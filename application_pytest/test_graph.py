@@ -1,9 +1,9 @@
-from graphsettings import Graph, Settings
+from graph import Graph, Channel
 
 def test_take_screenshot_graph():
     """Tests 4.4.2 Graph screenshot
     """
-    graph = Settings()
+    graph = Channel()
 
     image1 = graph.takeScreenshot()
     image2 = graph.takeScreenshot()
@@ -19,7 +19,7 @@ def test_take_screenshot_graph():
 def test_horizontal_scale():
     """Tests 4.4 Graph settings
     """
-    graph = Settings()
+    graph = Channel()
 
     # takes screenshot before setting applied and after for comparison
     # compare the two images if any change has happened
@@ -35,7 +35,7 @@ def test_horizontal_scale():
 def test_vertical_scale():
     """Tests 4.4 Graph settings
     """
-    graph = Settings()
+    graph = Channel()
 
     # takes screenshot before setting applied and after for comparison
     # compare the two images if any change has happened
@@ -51,7 +51,7 @@ def test_vertical_scale():
 def test_grid_scale():
     """Tests 4.4 Graph settings
     """
-    graph = Settings()
+    graph = Channel()
 
     # takes screenshot before setting applied and after for comparison
     # compare the two images if any change has happened

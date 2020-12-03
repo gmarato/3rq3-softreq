@@ -93,7 +93,8 @@ def test_apply_filter():
     assert old_data != filtered_data, "No changes to filtered data"
 
 def test_apply_noise_filter():
-    """Tests 4.3.2 Noise filtering
+    """ Tests 4.3 Filter library
+        Tests 4.3.2 Noise filtering
     """
     data = DataCapture()
 
@@ -121,7 +122,8 @@ def test_apply_noise_filter():
     assert not errors, "Assert errors occured:\n{}".format("\n".join(errors))
 
 def test_check_avail_filters():
-    """Tests 4.3.3 Data filtering
+    """ Tests 4.3 Filter library
+        Tests 4.3.3 Data filtering
     """
     data = DataCapture()
 

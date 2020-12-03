@@ -171,7 +171,6 @@ The device capture should be made via the following two means of device connecti
 
 \begin{table}[htbp]
 	\centering
-	
 	\begin{tabular}{|l|l|}
 		\hline
 		\textbf{Property}  & \textbf{Limits} \\
@@ -191,6 +190,8 @@ The application shall be able to continuously capture up to 1 hour of data.
 
 \subsubsection{Live data capture}
 
+The application shall capture the live EMG signal form the connected device and display on the graph.
+
 \subsubsection{Data saving}
 
 The user shall be able to save the raw captured data in (.csv) format along with information about the application version and EMG device (hardware/firmware version and serial number).
@@ -199,11 +200,9 @@ The user shall be able to save the raw captured data in (.csv) format along with
 
 The user shall be able to recall up to two saved captured data in (.csv) format simultaneously and display it on a single graph.
 
-The application shall capture the live EMG signal form the connected device and display on the graph.
-
 \subsection{Filter library}
 
-The application shall feature filters implemented using an internal libraryf for noise and data filtering.
+The application shall feature filters implemented using an internal library for noise and data filtering.
 
 \subsubsection{Filtering method}
 
@@ -335,8 +334,6 @@ The application shall be able to recall saved data (up to 1 hour long) in no les
 
 \subsection{Device connection}
 
-\subsubsection{Device connection}
-
 The user shall be able to connect to the EMG device within 1 minute of opening the application.
 
 \subsubsection{Device wireless disconnection}
@@ -353,18 +350,17 @@ The application must be compliant with IEC 62304:2006 standard.
 
 \newpage
 
-\section{Data Requirements}
+\section{Data requirements}
 
 \subsection{Overview}
 
 \begin{itemize}
 	\item EMG device - will track the EMG devices that are connected to the application. User can potentially connect many devices to host however, only one device can be connect to application and capturing.
 						This class will only be useful for firmware updates. 
-	\item Data capture - will contain and track the EMG data that is being captured by the application
-	\item Data recall - is a relationship with the data capture inheriting all of its methods and attributes. 
+	\item Data capture - will contain and track the EMG data that is being captured by the application as well as saved data onto the local disk 
 						Additional attributes such as date of capture and total length of data captured are added as useful information
-	\item Graph - will track two possible graph with two different applicable settings. Some settings like the graph scale will be common for both graphs
-	\item Settings - contains the many settings that can be applied to a channel within the single graph
+	\item Graph - tracks the graph that is displayed to the user and contains the data that it needs to display
+	\item Channel - will track two possible channels  with two different applicable settings within the graph. Some settings like the graph scale will be common for both graphs
 	\item Filter - contains information about the filter types and orders (how intense the filter is). Multiple filter types can be applied to the data capture (high, low-pass etc.)
 	\item Filter types (low, high, average, peak) - is a relationship with the filter class. Each filter type in itself can branch to many subtypes and have different properties such as cut-off frequencies, amplitude, weight
 \end{itemize}
@@ -382,7 +378,7 @@ The application must be compliant with IEC 62304:2006 standard.
 
 \newpage
 
-\section{Testing}
+\section{Requirements Testing}
 
 \subsection{Coverage Table}
 
@@ -391,20 +387,124 @@ The application must be compliant with IEC 62304:2006 standard.
 	
 	\begin{tabular}{|l|l|l|l|}
 		\hline
-		\textbf{Requirement \#} & \textbf{Description} & \textbf{Coverage} & \textbf{Test}\\
+		\textbf{Req\#} & \textbf{Description} & \textbf{Coverage} & \textbf{Test method}\\
 		\hline
-		5.2 & Testd & Yes & Automated\\
+		4.1 & Menu bar & Yes & Manual\\
+		\hline
+		4.1.1 & Status bar & Yes & Manual \\
+		\hline
+		4.1.2 & Closing the application & Yes & Manual \\
+		\hline
+		4.1.3 & Out of range data & Yes & Manual \\
+		\hline
+		4.2 & Data capture & Yes & Automated \\
+		\hline
+		4.2.1 & Device connection methods & Yes & Automated \\
+		\hline
+		4.2.2 & Data capture properties & Yes & Manual \\
+		\hline
+		4.2.3 & Data capture length & Yes & Automated \\
+		\hline
+		4.2.4 & Live data capture & Yes & Automated \\
+		\hline
+		4.2.5 & Data saving & Yes & Automated \\
+		\hline
+		4.2.6 & Data recall & Yes & Automated \\
+		\hline
+		4.3 & Filter library & Yes & Automated \\
+		\hline
+		4.3.1 & Noise filtering & Yes & Automated \\
+		\hline
+		4.3.2 & Data filtering & Yes & Automated \\
+		\hline
+		4.4 & Graph settings & Yes & Manual \\
+		\hline
+		4.4.1 & Data navigation & Yes & Manual \\
+		\hline
+		4.4.2 & Graph screenshot & Yes & Automated \\
+		\hline
+		5.1 & Connecting to an EMG device & Yes & Automated \\
+		\hline
+		5.1.1 & Connection type & Yes & Automated \\
+		\hline
+		5.1.3 & Retrieving device information & Yes & Automated \\
+		\hline
+		5.1.3 & Firmware upgrade & Yes & Manual \\
+		\hline
+		5.1.4 & Date synchronization & Yes & Automated \\
+		\hline
+		6.1 & User interface & No & See \hyperref[sec:ReqTestJust]{Appendix C} for justification \\
+		\hline
+		6.1.1 & Application graph & No & See \hyperref[sec:ReqTestJust]{Appendix C} for justification \\
+		\hline
+		6.1.2 & Touch intuitive controls & No & See \hyperref[sec:ReqTestJust]{Appendix C} for justification \\
+		\hline
+		6.1.3 & Data display & Yes & Manual \\
+		\hline
+		6.1.4 & Data recall & Yes & Manual \\
+		\hline
+		6.2 & Device connection & Yes & Manual \\
+		\hline
+		6.2.1 & Device wireless connection & Yes & Manual \\
+		\hline
+		6.2.2 & Device unresponsiveness & Yes & Manual \\
+		\hline
+		6.3 & Standards compliance & Yes & Manual \\
 		\hline
 	\end{tabular}
+	\textbf{\caption { Test coverage }}
 \end{table}
 
 \subsection{Automated Tests}
 
-The generated automated tests can be found with the following link: \href{https://github.com/gmarato/3rq3-softreq}{gmarato/3rq3-softreq}
+The automated python tests can be found with the following link: \\ \cite{Github} \href{https://github.com/gmarato/3rq3-softreq}{github.com.com/gmarato/3rq3-softreq}
+
+\newpage
 
 \subsection{Manual Tests}
 
 The following requirements will be tested manually:
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|l|p{3.5in}|p{1in}|}
+		\hline
+		\textbf{Req\#} & \textbf{Description} & \textbf{Test method}\\
+		\hline
+		4.1 & Menu bar  & Tested by visual inspection of application\\
+		\hline
+		4.1.1 & Status bar  & Tested by visual inspection of application \\
+		\hline
+		4.1.2 & Closing the application  & Tested by visual inspection of application \\
+		\hline
+		4.1.3 & Out of range data  & Tested by visual inspection of application with a out of range stimulating input to EMG device \\
+		\hline
+		4.2.2 & Data capture properties  & Tested by visual inspection of application with a stimulating input to EMG device with a signal within the outlined property limits \\
+		\hline
+		4.4 & Graph settings & Tested by visual inspection of application and tester interaction \\
+		\hline
+		4.4.1 & Data navigation & Tested by visual inspection of application and tester interaction \\
+		\hline
+		5.1.3 & Firmware upgrade & Tested by connecting a EMG device with older firmware and observing the upgrade \\
+		\hline
+		6.1.3 & Data display & Tested by connecting an EMG device and physically timing the interaction with a stopwatch  \\
+		\hline
+		6.1.4 & Data recall & Tested by connecting an EMG device and physically timing the interaction with a stopwatch \\
+		\hline
+		6.2 & Device connection & Tested by connecting and EMG device and physically timing the interaction with a stopwatch \\
+		\hline
+		6.2.1 & Device wireless connection & Tested by connecting an EMG device and physically timing the interaction with a stopwatch. Device can be disconnected using a wireless blocking chamber \\
+		\hline
+		6.2.2 & Device unresponsiveness & Tested by connecting and EMG device and physically timing the interaction with a stopwatch. Device can be disconnected using a wireless blocking chamber or sudden wired disconnection \\
+		\hline
+		6.3 & Standards compliance & Tested and certified with an external testing facility like TUV Sud \\
+		\hline
+	\end{tabular}
+	\textbf{\caption { Manual tests }}
+\end{table}
+
+
+\textbf{NOTE:} For time sensitive tests like 6.1.3 and 6.1.4 high speed cameras and stopwatches with milliseconds precision can be employed to facilitate the tests.
 
 \newpage
 
@@ -546,8 +646,31 @@ standard array of filters. I decided to include the basic array of filtering for
 \newpage
 
 \section{Requirements Test Justification}
+\label{sec:ReqTestJust}
 
-The following requirements can not be tested either via automated means or manual:
+The following requirements can not be tested either via automated means or manually:
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|l|p{3.5in}|p{1in}|}
+		\hline
+		\textbf{Req\#} & \textbf{Description} & \textbf{Test method}\\
+		\hline
+		6.1 & User interface  & Cannot be tested as this is a subjective feature. 
+								However, several potential users could be called in for a trial test for feedback. 
+								Further adjustments can be made if a clinical study is organized and after the application is on market and user feedback is gathered.\\
+		\hline
+		6.1.1 & Application graph  & Cannot be tested as this is a subjective feature. 
+										However, several potential users could be called in for a trial test for feedback. 
+										Further adjustments can be made if a clinical study is organized and after the application is on market and user feedback is gathered.\\
+		\hline
+		6.1.2 & Touch intuitive controls  & Cannot be tested as this is a subjective feature. 
+											However, several potential users could be called in for a trial test for feedback. 
+											Further adjustments can be made if a clinical study is organized and after the application is on market and user feedback is gathered.\\
+		\hline
+	\end{tabular}
+	\textbf{\caption {  Requirements test justification }}
+\end{table}
 
 \newpage
 \begin{thebibliography}{9}
@@ -575,6 +698,11 @@ The following requirements can not be tested either via automated means or manua
   \textit{“Canadian Table of Frequency Allocations”},
   Accessed 2020-11-18,
   www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf10759
+
+\bibitem{Github}
+  Marato Gebremichael,
+  \textit{“3rq3-softreq github page”},
+  www.github.com/gmarato/3rq3-softreq
  
 \end{thebibliography}
 
